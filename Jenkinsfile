@@ -22,6 +22,9 @@ node {
     }
 
   } catch (err) {
+    echo "Exception thrown:\n ${err}"
+    echo "Stacktrace:"
+    err.printStackTrace()
     currentBuild.result = 'FAILURE'
   }
 }
