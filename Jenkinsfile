@@ -17,6 +17,7 @@ node {
     stage('Docker Build, Push'){
       withDockerRegistry([credentialsId: "${Creds}", url: 'http://localhost:5000']) {
         sh "docker build -t ${ImageName}:${imageTag} ."
+        sh "docker tag ${ImageName} localhost:5000/${ImageName}"
         sh "docker push localhost:5000/${ImageName}"
       }
     }
