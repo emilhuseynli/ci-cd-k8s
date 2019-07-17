@@ -2,8 +2,6 @@ const chai = require("chai");
 const sinon = require("sinon");
 var rootResponder = require("../routes/root");
 
-// const expect = chai.expect;
-// const assert = chai.assert;
 chai.should();
 describe("Root Directory Test", function() {
   describe("Should Behave properly on GETing /", function() {

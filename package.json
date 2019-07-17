@@ -1,5 +1,5 @@
 {
-  "name": "ctr-test-restifyjs",
+  "name": "ci-cd-k8s",
   "version": "1.0.4",
   "description": "",
   "main": "index.js",
