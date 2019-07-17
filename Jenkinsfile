@@ -15,7 +15,7 @@ node {
     }
 
     stage('Docker Build, Push'){
-      withDockerRegistry([credentialsId: "${Creds}", url: 'localhost:5000']) {
+      withDockerRegistry([credentialsId: "${Creds}", url: 'http://localhost:5000']) {
         sh "docker build -t ${ImageName}:${imageTag} ."
         sh "docker push ${ImageName}"
       }
@@ -23,8 +23,6 @@ node {
 
   } catch (err) {
     echo "Exception thrown:\n ${err}"
-    echo "Stacktrace:"
-    err.printStackTrace()
     currentBuild.result = 'FAILURE'
   }
 }
