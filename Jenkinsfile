@@ -1,4 +1,5 @@
 node {
+  def Namespace = "default"
   def ImageName = "ci-cd-k8s"
   def Registry  = "localhost:5000"
   def Creds	= "docker-registry-user"
