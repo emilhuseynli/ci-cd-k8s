@@ -12,11 +12,11 @@
     - name: Create Namespace {{ Namespace }}
       command: "kubectl create namespace {{ Namespace }}"
       ignore_errors: yes
-    - name: Deploy SayarApp
+    - name: Deploy {{ ImageName }}
       command: "helm install --name={{ ImageName }}-{{ Namespace }}  --namespace={{ Namespace }} ../helm --set image.repository={{ ImageRepository }} --set image.name={{ ImageName }} --set image.tag={{ imageTag }} --set namespace={{ Namespace }}"
       delegate_to: localhost
       ignore_errors: yes
-    - name: Update SayarApp
+    - name: Update {{ ImageName }}
       command: "helm upgrade --wait --recreate-pods --namespace={{ Namespace }} --set image.repository={{ ImageRepository }} --set image.name={{ ImageName }} --set image.tag={{ imageTag }} --set namespace={{ Namespace }} {{ ImageName }}-{{ Namespace }} ../helm"
       delegate_to: localhost
       ignore_errors: yes
