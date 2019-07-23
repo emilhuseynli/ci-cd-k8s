@@ -24,6 +24,10 @@ node {
       }
     }
 
+    stage('Deploy on K8s'){
+     sh "ansible-playbook $HOME/${ImageName}/deploy/ansible/deploy.yml  --user=jenkins --extra-vars ImageRepository=${Registry} --extra-vars ImageName=${ImageName} --extra-vars imageTag=${imageTag} --extra-vars Namespace=${Namespace}"
+    }
+
   } catch (err) {
     echo "Exception thrown:\n ${err}"
     currentBuild.result = 'FAILURE'

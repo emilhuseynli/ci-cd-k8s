@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ci-cd-k8s
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: ci-cd-k8s
+  template:
+    metadata:
+      labels:
+        app: ci-cd-k8s
+    spec:
+      containers:
+      - name: ci-cd-k8s
+        image: "{{ .Values.image.repository }}/{{ .Values.image.name }}:{{ .Values.image.tag }}"
+        ports:
+        - containerPort: 3000
+        imagePullPolicy: Always
+      imagePullSecrets:
+        - name: regcred
