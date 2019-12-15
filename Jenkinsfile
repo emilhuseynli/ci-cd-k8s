@@ -7,7 +7,7 @@ node {
     stage('Checkout') {
       git 'https://github.com/emilhuseynli/ci-cd-k8s.git'
         sh "git rev-parse --short HEAD > .git/commit-id"
-        imageTag= readFile('.git/commit-id').trim()
+        ImageTag= readFile('.git/commit-id').trim()
     }
 
     stage('RUN Unit Tests') {
@@ -17,16 +17,16 @@ node {
 
     stage('Docker Build, Push'){
       withDockerRegistry([credentialsId: "${Creds}", url: "http://${Registry}"]) {
-        sh "docker build -t ${ImageName}:${imageTag} ."
-        sh "docker tag ${ImageName}:${imageTag} ${Registry}/${ImageName}:${imageTag}"
-        sh "docker push ${Registry}/${ImageName}:${imageTag}"
-        sh "docker rmi ${Registry}/${ImageName}:${imageTag}"
-        sh "docker rmi ${ImageName}:${imageTag}"
+        sh "docker build -t ${ImageName}:${ImageTag} ."
+        sh "docker tag ${ImageName}:${ImageTag} ${Registry}/${ImageName}:${ImageTag}"
+        sh "docker push ${Registry}/${ImageName}:${ImageTag}"
+        sh "docker rmi ${Registry}/${ImageName}:${ImageTag}"
+        sh "docker rmi ${ImageName}:${ImageTag}"
       }
     }
 
     stage('Deploy on K8s'){
-     sh "ansible-playbook $HOME/${ImageName}/deploy/ansible/deploy.yml  --user=jenkins --extra-vars ImageRepository=${Registry} --extra-vars ImageName=${ImageName} --extra-vars imageTag=${imageTag} --extra-vars Namespace=${Namespace}"
+     sh "ansible-playbook $HOME/${ImageName}/deploy/ansible/deploy.yml  --user=jenkins --extra-vars ImageRepository=${Registry} --extra-vars ImageName=${ImageName} --extra-vars ImageTag=${ImageTag} --extra-vars Namespace=${Namespace}"
     }
 
   } catch (err) {

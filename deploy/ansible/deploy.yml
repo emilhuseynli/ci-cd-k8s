@@ -3,7 +3,7 @@
     ImageRepository: ""
     ImageName: ""
     Namespace: ""
-    imageTag: ""
+    ImageTag: ""
   #remote_user: ansible
   #become: true
   gather_facts: no
@@ -13,7 +13,7 @@
       command: "kubectl create namespace {{ Namespace }}"
       ignore_errors: yes
     - name: Deploy {{ ImageName }}
-      command: "helm install --name={{ ImageName }}-{{ Namespace }}  --namespace={{ Namespace }} ../helm --set image.repository={{ ImageRepository }} --set image.name={{ ImageName }} --set image.tag={{ imageTag }} --set namespace={{ Namespace }}"
+      command: "helm install {{ ImageName }}-{{ Namespace }}  --namespace={{ Namespace }} ../helm --set image.repository={{ ImageRepository }} --set image.name={{ ImageName }} --set image.tag={{ ImageTag }} --set namespace={{ Namespace }}"
       delegate_to: localhost
       ignore_errors: yes
     - name: Update {{ ImageName }}
