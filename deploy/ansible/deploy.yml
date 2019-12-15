@@ -17,7 +17,7 @@
       delegate_to: localhost
       ignore_errors: yes
     - name: Update {{ ImageName }}
-      command: "helm upgrade --wait --recreate-pods --namespace={{ Namespace }} --set image.repository={{ ImageRepository }} --set image.name={{ ImageName }} --set image.tag={{ imageTag }} --set namespace={{ Namespace }} {{ ImageName }}-{{ Namespace }} ../helm"
+      command: "helm upgrade --wait --recreate-pods --namespace={{ Namespace }} --set image.repository={{ ImageRepository }} --set image.name={{ ImageName }} --set image.tag={{ ImageTag }} --set namespace={{ Namespace }} {{ ImageName }}-{{ Namespace }} ../helm"
       delegate_to: localhost
       ignore_errors: yes
 
